@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -10,9 +11,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250704081149_AddDonorTable Migration")]
+    partial class AddDonorTableMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,88 +107,6 @@ namespace WasteFood.Migrations
                     b.HasKey("D_Id");
 
                     b.ToTable("Donor");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
-                {
-                    b.Property<int>("Fd_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fd_ID"));
-
-                    b.Property<int>("D_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Food_Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Food_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Fd_ID");
-
-                    b.HasIndex("D_Id");
-
-                    b.ToTable("Food_Donations");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
-                {
-                    b.Property<int>("Fr_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fr_Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Food_Details")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Fr_Id");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Food_Request");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
-                {
-                    b.HasOne("WasteFood.Models.Entities.Donor", "Donor")
-                        .WithMany()
-                        .HasForeignKey("D_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Donor");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
-                {
-                    b.HasOne("WasteFood.Models.Entities.Customer", "Customers")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }

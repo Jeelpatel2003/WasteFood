@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -10,9 +11,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250704082606_AddFood_Donation Migration")]
+    partial class AddFood_DonationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,32 +143,6 @@ namespace WasteFood.Migrations
                     b.ToTable("Food_Donations");
                 });
 
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
-                {
-                    b.Property<int>("Fr_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fr_Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Food_Details")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Fr_Id");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Food_Request");
-                });
-
             modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
                 {
                     b.HasOne("WasteFood.Models.Entities.Donor", "Donor")
@@ -175,17 +152,6 @@ namespace WasteFood.Migrations
                         .IsRequired();
 
                     b.Navigation("Donor");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
-                {
-                    b.HasOne("WasteFood.Models.Entities.Customer", "Customers")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }
