@@ -1,4 +1,6 @@
-﻿namespace WasteFood.Models.Entities
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace WasteFood.Models.Entities
 {
     public class Customer
     {
