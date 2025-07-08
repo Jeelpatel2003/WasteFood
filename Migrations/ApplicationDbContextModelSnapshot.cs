@@ -98,8 +98,9 @@ namespace WasteFood.Migrations
                     b.Property<int>("Password")
                         .HasColumnType("int");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("D_Id");
 
