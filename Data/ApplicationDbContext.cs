@@ -8,12 +8,14 @@ namespace WasteFood.Data
         {
         }
 
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<User> User { get; set; }
 
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Donor> Donor { get; set; }
         public DbSet<FoodDonation> Food_Donation { get; set; }
-      
+        public DbSet<Food_Request> Food_Request { get; set; }
+
+
 
     }
 }

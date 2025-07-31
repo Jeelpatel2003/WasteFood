@@ -1,8 +1,9 @@
-﻿@model WasteFood.Models.ViewModels.CustomerViewModel
+﻿@model WasteFood.Models.ViewModels.UserViewModel
 
-<h2>Add Customer</h2>
+<h2>Edit User</h2>
 
-<form asp-action="Add" method="post">
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -28,7 +29,7 @@
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2">Add Customer</button>
+    <button type="submit" class="btn btn-primary mt-2">Update User</button>
 </form>
 
 @section Scripts {

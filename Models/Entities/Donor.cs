@@ -18,6 +18,7 @@ namespace WasteFood.Models.Entities
 
         public string Address { get; set; }
 
-        public int MobileNo { get; set; }
+        public string MobileNo { get; set; }  // ✅ Change from int to string
+
     }
 }
