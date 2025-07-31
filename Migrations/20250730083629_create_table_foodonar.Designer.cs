@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -10,9 +11,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250730083629_create_table_foodonar")]
+    partial class create_table_foodonar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace WasteFood.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("WasteFood.Models.Entities.Customer", b =>
@@ -66,8 +69,9 @@ namespace WasteFood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -90,9 +94,6 @@ namespace WasteFood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MobileNo")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,55 +102,52 @@ namespace WasteFood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("D_Id");
 
                     b.ToTable("Donor");
                 });
 
-            modelBuilder.Entity("WasteFood.Models.Entities.FoodDonation", b =>
+            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
                 {
-                    b.Property<int>("FD_Id")
+                    b.Property<int>("Fd_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FD_Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fd_ID"));
 
-                    b.Property<int>("ContactNo")
-                        .HasColumnType("int");
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("D_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("FoodDescription")
-                        .IsRequired()
+                    b.Property<string>("Food_Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FoodName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("Food_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PickupAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FD_Id");
+                    b.HasKey("Fd_ID");
 
                     b.HasIndex("D_Id");
 
-                    b.ToTable("Food_Donation");
+                    b.ToTable("Food_Donations");
                 });
 
-            modelBuilder.Entity("WasteFood.Models.Entities.FoodDonation", b =>
+            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
                 {
                     b.HasOne("WasteFood.Models.Entities.Donor", "Donor")
                         .WithMany()

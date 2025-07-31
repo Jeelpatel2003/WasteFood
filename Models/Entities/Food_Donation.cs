@@ -3,17 +3,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WasteFood.Models.Entities
 {
-    public class Food_Donation
+    public class FoodDonation  // or Food_Donation if your class name is like that
     {
-        [Key]
-        public int Fd_ID { get; set; }
-        public int D_Id { get; set; } // ForeignKey
+        [Key]  // <-- This is critical
+        public int FD_Id { get; set; }
+
+        public int D_Id { get; set; }  // foreign key
+
         [ForeignKey("D_Id")]
         public Donor Donor { get; set; }
-        public string Food_Name { get; set; }
-        public string Food_Description { get; set; }    
-        public string Quantity { get; set; }    
+
+        [Required]
+        public string FoodName { get; set; }
+
+        public string FoodDescription { get; set; }
+
+        public int Quantity { get; set; }
+
+        public string PickupAddress { get; set; }
+
+        public int ContactNo { get; set; }
+
         public string Status { get; set; }
 
+        public string? ImagePath { get; set; }
     }
 }

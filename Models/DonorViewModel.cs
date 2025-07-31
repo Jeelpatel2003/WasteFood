@@ -1,23 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WasteFood.Models.Entities
+namespace WasteFood.Models
 {
-    public class Donor
+    public class DonorViewModel
     {
-        [Key] // ✅ Required
-        public int D_Id { get; set; }
-
         [Required]
         public string Name { get; set; }
-
         [Required]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }
 
         public string Address { get; set; }
-
-        public int MobileNo { get; set; }
+        [Required]
+        [Phone(ErrorMessage = "Invalid Phone Number")]
+        public int Phone { get; set; }
     }
 }
