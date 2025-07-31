@@ -1,37 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<WasteFood.Models.Entities.Customer>
 
+<h2>Customer List</h2>
+<a asp-action="Add" class="btn btn-primary mt-3">Add New Customer</a>
 
-@model List<WasteFood.Models.Entities.Customer>
-<h1> Customer </h1>
-
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
-            <th>Password</th>
-            <th> </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var Customers in Model)
+        @foreach (var customer in Model)
         {
             <tr>
-                <td>@Customers.Id</td>
-                <td>@Customers.Name</td>
-                <td>@Customers.Email</td>
-                <td>@Customers.Phone</td>
-                <td>@Customers.Address</td>
-                <td>@Customers.Password</td>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Phone</td>
+                <td>@customer.Address</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="Customers" asp-action="Edit" asp-route-id="@Customers.Id">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@customer.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@customer.Id" method="post" style="display:inline-block;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this customer?');">Delete</button>
+                    </form>
                 </td>
             </tr>
         }

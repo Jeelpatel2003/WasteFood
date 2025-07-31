@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<WasteFood.Models.Entities.Donor>
+
+<h1>Donor List</h1>
+
+<a class="btn btn-primary mb-2" asp-controller="Donor" asp-action="Add">Add New Donor</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var donor in Model)
+        {
+            <tr>
+                <td>@donor.D_Id</td>
+                <td>@donor.Name</td>
+                <td>@donor.Email</td>
+                <td>@donor.Password</td>
+                <td>@donor.Address</td>
+                <td>@donor.MobileNo</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@donor.D_Id">Edit</a>
+
+                    <form asp-action="Delete" method="post" asp-route-id="@donor.D_Id" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
