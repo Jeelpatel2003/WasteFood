@@ -1,0 +1,290 @@
+﻿@model WasteFood.Models.ViewModels.Food_DonationViewModel
+
+@{
+    Layout = null; // You are using full HTML template, not _Layout.cshtml
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <title>Food Donation - Waste Food Management</title>
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/charts-c3/plugin.css" />
+    <link rel="stylesheet" href="~/assets/plugins/morrisjs/morris.min.css" />
+    <link rel="stylesheet" href="~/assets/css/style.min.css">
+</head>
+
+<body class="theme-blush">
+     <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="~/assets/images/loader.svg" width="48" height="48" alt="Aero"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Main Search -->
+    <div id="search">
+        <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+        <form>
+            <input type="search" value="" placeholder="Search..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <div class="navbar-brand">
+            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+            <a><img src="~/assets/images/logo.svg" width="25" alt="Aero"><span class="m-l-10">WFMS</span></a>
+        </div>
+        <div class="menu">
+            <ul class="list">
+                <li>
+                    <div class="user-info">
+                        <a class="image" href="profile.html"><img src="~/assets/images/profile_av.jpg" alt="User"></a>
+                        <div class="detail">
+                            <h4>DONOR</h4>
+                        </div>
+                    </div>
+                </li>
+                <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-grid"></i><span>Tables</span></a>
+                    <ul class="ml-menu">
+                        <li><a asp-controller="Donor" asp-action="List">Donor</a></li>
+                        <li><a asp-controller="Donor" asp-action="Food_Donation">Food Donation</a></li>
+                        <li><a href="jquery-datatable.html">Jquery Datatables</a></li>
+                        <li><a href="editable-table.html">Editable Tables</a></li>
+                        <li><a href="footable.html">Foo Tables</a></li>
+                        <li><a href="table-color.html">Tables Color</a></li>
+                    </ul>
+                </li>
+                <li class="open_top">
+                    <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-map"></i><span>Maps</span></a>
+                    <ul class="ml-menu">
+                        <li><a href="google.html">Google Map</a></li>
+                        <li><a href="yandex.html">YandexMap</a></li>
+                        <li><a href="jvectormap.html">jVectorMap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Right Sidebar -->
+    <aside id="rightsidebar" class="right-sidebar">
+        <ul class="nav nav-tabs sm">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="setting">
+                <div class="slim_scroll">
+                    <div class="card">
+                        <h6>Theme Option</h6>
+                        <div class="light_dark">
+                            <div class="radio">
+                                <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+                                <label for="lighttheme">Light Mode</label>
+                            </div>
+                            <div class="radio mb-0">
+                                <input type="radio" name="radio1" id="darktheme" value="dark">
+                                <label for="darktheme">Dark Mode</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h6>Color Skins</h6>
+                        <ul class="choose-skin list-unstyled">
+                            <li data-theme="purple"><div class="purple"></div></li>
+                            <li data-theme="blue"><div class="blue"></div></li>
+                            <li data-theme="cyan"><div class="cyan"></div></li>
+                            <li data-theme="green"><div class="green"></div></li>
+                            <li data-theme="orange"><div class="orange"></div></li>
+                            <li data-theme="blush" class="active"><div class="blush"></div></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h6>General Settings</h6>
+                        <ul class="setting-list list-unstyled">
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label for="checkbox1">Report Panel Usage</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox" checked="">
+                                    <label for="checkbox2">Email Redirect</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" checked="">
+                                    <label for="checkbox3">Notifications</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox">
+                                    <label for="checkbox4">Auto Updates</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox5" type="checkbox" checked="">
+                                    <label for="checkbox5">Offline</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input id="checkbox6" type="checkbox" checked="">
+                                    <label for="checkbox6">Location Permission</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane right_chat" id="chat">
+                <div class="slim_scroll">
+                    <div class="card">
+                        <ul class="list-unstyled">
+                            <li class="online">
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object " src="~/assets/images/xs/avatar4.jpg" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Sophia <small class="float-right">11:00AM</small></span>
+                                            <span class="message">There are many variations of passages of Lorem Ipsum available</span>
+                                            <span class="badge badge-outline status"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="online">
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object " src="assets/images/xs/avatar5.jpg" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Grayson <small class="float-right">11:30AM</small></span>
+                                            <span class="message">All the Lorem Ipsum generators on the</span>
+                                            <span class="badge badge-outline status"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="offline">
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object " src="assets/images/xs/avatar2.jpg" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Isabella <small class="float-right">11:31AM</small></span>
+                                            <span class="message">Contrary to popular belief, Lorem Ipsum</span>
+                                            <span class="badge badge-outline status"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="me">
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object " src="assets/images/xs/avatar1.jpg" alt="">
+                                        <div class="media-body">
+                                            <span class="name">John <small class="float-right">05:00PM</small></span>
+                                            <span class="message">It is a long established fact that a reader</span>
+                                            <span class="badge badge-outline status"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="online">
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object " src="assets/images/xs/avatar3.jpg" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Alexander <small class="float-right">06:08PM</small></span>
+                                            <span class="message">Richard McClintock, a Latin professor</span>
+                                            <span class="badge badge-outline status"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!-- Your sidebar and header code remains unchanged -->
+    <!-- Main Content -->
+    <section class="content">
+        <div class="container mt-5">
+            <div class="row clearfix justify-content-center">
+                <div class="col-lg-8 col-md-10 col-sm-12">
+                    <div class="card">
+                        <h2>Add Food Donation</h2>
+                        <form asp-action="AddFood_Donation" method="post" enctype="multipart/form-data">
+                            <div>
+                                <label>Donor ID:</label>
+                                <input asp-for="D_Id" class="form-control" />
+                                <span asp-validation-for="D_Id" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Food Name:</label>
+                                <input asp-for="Food_Name" class="form-control" />
+                                <span asp-validation-for="Food_Name" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Description:</label>
+                                <input asp-for="Food_Description" class="form-control" />
+                                <span asp-validation-for="Food_Description" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Quantity:</label>
+                                <input asp-for="Quantity" class="form-control" />
+                                <span asp-validation-for="Quantity" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Pickup Address:</label>
+                                <input asp-for="PickupAddress" class="form-control" />
+                                <span asp-validation-for="PickupAddress" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Contact Number:</label>
+                                <input asp-for="ContactNumber" class="form-control" />
+                                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label>Status:</label>
+                                <input asp-for="Status" class="form-control" />
+                            </div>
+                            <div>
+                                <label>Food Image:</label>
+                                <input type="file" name="FoodImage" class="form-control" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="~/assets/bundles/libscripts.bundle.js"></script>
+    <script src="~/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/assets/bundles/mainscripts.bundle.js"></script>
+</body>
+</html>

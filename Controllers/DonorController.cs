@@ -3,20 +3,25 @@ using Microsoft.EntityFrameworkCore;
 using WasteFood.Data;
 using WasteFood.Models;
 using WasteFood.Models.Entities;
-using System;
-using System.Threading.Tasks;
 using WasteFood.Models.ViewModels;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace WasteFood.Controllers
 {
     public class DonorController : Controller
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        // ✅ Corrected constructor assignment
-        public DonorController(ApplicationDbContext context)
+        public DonorController(ApplicationDbContext context, IWebHostEnvironment env)
         {
             dbContext = context;
+            webHostEnvironment = env;
         }
 
         public IActionResult Index()
@@ -24,13 +29,18 @@ namespace WasteFood.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Add()
+        public IActionResult DDashboard()
         {
             return View();
         }
 
-        public IActionResult DDashboard()
+        public IActionResult Donor()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
         {
             return View();
         }
@@ -42,6 +52,7 @@ namespace WasteFood.Controllers
             {
                 return View(viewModel);
             }
+                
 
             var donor = new Donor
             {
@@ -49,13 +60,13 @@ namespace WasteFood.Controllers
                 Email = viewModel.Email,
                 Password = viewModel.Password,
                 Address = viewModel.Address,
-                MobileNo = viewModel.MobileNo  // ✅ Convert string to int
+                MobileNo = viewModel.MobileNo
             };
 
             await dbContext.Donor.AddAsync(donor);
             await dbContext.SaveChangesAsync();
 
-            return RedirectToAction("List");  // ✅ Redirect to list.cshtml
+            return RedirectToAction("List");
         }
 
 
@@ -74,6 +85,7 @@ namespace WasteFood.Controllers
             {
                 return NotFound();
             }
+                
 
             return View(donor);
         }
@@ -85,7 +97,6 @@ namespace WasteFood.Controllers
             {
                 return View(model);
             }
-
             var donor = await dbContext.Donor.FindAsync(model.D_Id);
             if (donor == null)
             {
@@ -116,36 +127,64 @@ namespace WasteFood.Controllers
 
             return RedirectToAction("List");
         }
-
-        public IActionResult Food_Request()
+        [HttpGet]
+        public IActionResult AddFood_Donation()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Food_Request(Food_DonationViewModel model)
+        public async Task<IActionResult> AddFood_Donation(Food_DonationViewModel model, IFormFile FoodImage)
         {
             if (ModelState.IsValid)
             {
-                var request = new FoodDonation
+                string imagePath = null;
+
+                if (FoodImage != null && FoodImage.Length > 0)
                 {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
+                    if (!Directory.Exists(uploadsFolder))
+                        Directory.CreateDirectory(uploadsFolder);
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(FoodImage.FileName);
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await FoodImage.CopyToAsync(stream);
+                    }
+
+                    imagePath = "/uploads/" + uniqueFileName;
+                }
+
+                var donation = new Food_Donation
+                {
+                    D_Id = model.D_Id,
                     FoodName = model.Food_Name,
                     FoodDescription = model.Food_Description,
                     Quantity = model.Quantity,
                     PickupAddress = model.PickupAddress,
                     ContactNo = model.ContactNumber,
                     Status = model.Status,
-                    ImagePath = model.ExistingImage
+                    ImagePath = imagePath
                 };
 
-                dbContext.Food_Donation.Add(request);
-                dbContext.SaveChanges();
+                dbContext.Food_Donation.Add(donation);
+                await dbContext.SaveChangesAsync();
 
-                TempData["Success"] = "Food request submitted successfully.";
-                return RedirectToAction("Food_Request");
+                TempData["Success"] = "Food Donation submitted successfully.";
+                return RedirectToAction("ListFood_Donation");
             }
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ListFood_Donation()
+        {
+            var donations = await dbContext.Food_Donation.ToListAsync();
+            return View(donations);
+        }
+
     }
 }
