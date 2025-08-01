@@ -49,14 +49,15 @@ namespace WasteFood.Controllers
                 Email = viewModel.Email,
                 Password = viewModel.Password,
                 Address = viewModel.Address,
-                MobileNo = viewModel.Phone
+                MobileNo = viewModel.MobileNo  // ✅ Convert string to int
             };
 
             await dbContext.Donor.AddAsync(donor);
             await dbContext.SaveChangesAsync();
 
-            return RedirectToAction("List");
+            return RedirectToAction("List");  // ✅ Redirect to list.cshtml
         }
+
 
         [HttpGet]
         public async Task<IActionResult> List()

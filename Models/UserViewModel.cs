@@ -2,9 +2,9 @@
 
 namespace WasteFood.Models.ViewModels
 {
-    public class CustomerViewModel
+    public class UserViewModel
     {
-        public int Id { get; set; }  // For edit
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
@@ -12,7 +12,7 @@ namespace WasteFood.Models.ViewModels
         [Required, EmailAddress(ErrorMessage = "Valid email required")]
         public string Email { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }  // ✅ Changed to string (no validation)
 
         public string Address { get; set; }
 

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace WasteFood.Controllers
 {
-    public class CustomerController : Controller
+    public class UserController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public CustomerController(ApplicationDbContext dbContext)
+        public UserController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -26,17 +26,17 @@ namespace WasteFood.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View(new CustomerViewModel());
+            return View(new UserViewModel());
         }
 
         // POST: Customer/Add
         [HttpPost]
-        public async Task<IActionResult> Add(CustomerViewModel model)
+        public async Task<IActionResult> Add(UserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var customer = new Customer
+            var user = new User
             {
                 Name = model.Name,
                 Email = model.Email,
@@ -45,74 +45,74 @@ namespace WasteFood.Controllers
                 Password = model.Password
             };
 
-            await _dbContext.Customer.AddAsync(customer);
+            await _dbContext.User.AddAsync(user);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(ListCustomer));
+            return RedirectToAction(nameof(List));
         }
 
         // GET: Customer/ListCustomer
         [HttpGet]
-        public async Task<IActionResult> ListCustomer()
+        public async Task<IActionResult> List()
         {
-            var customers = await _dbContext.Customer.ToListAsync();
-            return View(customers);
+            var users = await _dbContext.User.ToListAsync();
+            return View(users);
         }
 
         // GET: Customer/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var customer = await _dbContext.Customer.FindAsync(id);
-            if (customer == null)
+            var user = await _dbContext.User.FindAsync(id);
+            if (user == null)
                 return NotFound();
 
-            var model = new CustomerViewModel
+            var model = new UserViewModel
             {
-                Id = customer.Id,
-                Name = customer.Name,
-                Email = customer.Email,
-                Phone = customer.Phone,
-                Address = customer.Address,
-                Password = customer.Password
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Phone = user.Phone,
+                Address = user.Address,
+                Password = user.Password
             };
             return View(model);
         }
 
         // POST: Customer/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(CustomerViewModel model)
+        public async Task<IActionResult> Edit(UserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var customer = await _dbContext.Customer.FindAsync(model.Id);
-            if (customer == null)
+            var user = await _dbContext.User.FindAsync(model.Id);
+            if (user == null)
                 return NotFound();
 
-            customer.Name = model.Name;
-            customer.Email = model.Email;
-            customer.Phone = model.Phone;
-            customer.Address = model.Address;
-            customer.Password = model.Password;
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.Phone = model.Phone;
+            user.Address = model.Address;
+            user.Password = model.Password;
 
-            _dbContext.Customer.Update(customer);
+            _dbContext.User.Update(user);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(ListCustomer));
+            return RedirectToAction(nameof(List));
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var customer = await _dbContext.Customer.FindAsync(id);
+            var customer = await _dbContext.User.FindAsync(id);
             if (customer != null)
             {
-                _dbContext.Customer.Remove(customer);
+                _dbContext.User.Remove(customer);
                 await _dbContext.SaveChangesAsync();
             }
-            return RedirectToAction(nameof(ListCustomer));
+            return RedirectToAction(nameof(List));
         }
     }
 }
