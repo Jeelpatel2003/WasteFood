@@ -1,0 +1,139 @@
+﻿@model WasteFood.Models.ViewModels.Food_DonationViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Add Food Donation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f8;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .validation-message {
+            color: red;
+            font-size: 13px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #218838;
+            }
+
+        .asp-validation-summary {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add Food Donation</h2>
+
+    <div class="form-container">
+        <form asp-controller="Donor" asp-action="AddFood_Donation" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="asp-validation-summary"></div>
+
+            <div class="form-group">
+                <label>Donor ID</label>
+                <input asp-for="D_Id" />
+                <span asp-validation-for="D_Id" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Food Name</label>
+                <input asp-for="Food_Name" />
+                <span asp-validation-for="Food_Name" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea asp-for="Food_Description"></textarea>
+                <span asp-validation-for="Food_Description" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity</label>
+                <input asp-for="Quantity" />
+                <span asp-validation-for="Quantity" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Pickup Address</label>
+                <input asp-for="PickupAddress" />
+                <span asp-validation-for="PickupAddress" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input asp-for="ContactNumber" />
+                <span asp-validation-for="ContactNumber" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <input asp-for="Status" />
+                <span asp-validation-for="Status" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" name="FoodImage" />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

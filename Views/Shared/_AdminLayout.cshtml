@@ -285,22 +285,18 @@
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-grid"></i><span>Tables</span></a>
                     <ul class="ml-menu">
-						<li><a href="normal-tables.html">Donor</a></li>
-						<li><a asp-controller="Donor" asp-action="List">Donor</a></li>
-                        <li><a href="jquery-datatable.html">Jquery Datatables</a></li>
-                        <li><a href="editable-table.html">Editable Tables</a></li>
-                        <li><a href="footable.html">Foo Tables</a></li>
-                        <li><a href="table-color.html">Tables Color</a></li>
+                        <li><a href="/Donor/DDashboard">Donor</a></li>
+                        <li><a href="/User/CDashboard">User</a></li>
                     </ul>
                 </li>
-                <li class="open_top">
+               @*  <li class="open_top">
                     <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-map"></i><span>Maps</span></a>
                     <ul class="ml-menu">
                         <li><a href="google.html">Google Map</a></li>
                         <li><a href="yandex.html">YandexMap</a></li>
                         <li><a href="jvectormap.html">jVectorMap</a></li>
                     </ul>
-                </li>
+                </li> *@
             </ul>
         </div>
     </aside>
@@ -475,59 +471,53 @@
                 <div class="card bg-light p-4">
                     <!-- Full background container -->
                     <!-- First Row -->
+                    @{
+                        ViewData["Title"] = "Dashboard";
+                    }
+
                     <div class="row clearfix mb-4">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="card widget_2 big_icon traffic">
                                 <div class="body">
                                     <h6>Donor</h6>
-                                    <h2>20 <small class="info">of 1Tb</small></h2>
-                                    <small>2% higher than last month</small>
-                                    <div class="progress">
-                                        <div class="progress-bar l-amber" style="width: 45%;"></div>
-                                    </div>
+                                    <h2>@ViewBag.DonorCount</h2>
+                                    <small>Total donors in the database</small>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="card widget_2 big_icon sales">
                                 <div class="body">
-                                    <h6>Customer</h6>
-                                    <h2>12% <small class="info">of 100</small></h2>
-                                    <small>6% higher than last month</small>
-                                    <div class="progress">
-                                        <div class="progress-bar l-blue" style="width: 38%;"></div>
-                                    </div>
+                                    <h6>User</h6>
+                                    <h2>@ViewBag.UserCount</h2>
+                                    <small>Total users in the database</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Second Row -->
-                    <div class="row clearfix">
+                    <div class="row clearfix mb-4">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="card widget_2 big_icon email">
+                            <div class="card widget_2 big_icon traffic">
                                 <div class="body">
-                                    <h6>Email</h6>
-                                    <h2>39 <small class="info">of 100</small></h2>
-                                    <small>Total Registered email</small>
-                                    <div class="progress">
-                                        <div class="progress-bar l-purple" style="width: 39%;"></div>
-                                    </div>
+                                    <h6>Food_Donation</h6>
+                                    <h2>@ViewBag.Food_DonationCount</h2>
+                                    <small>Total Food_Donation in the database</small>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="card widget_2 big_icon domain">
+                            <div class="card widget_2 big_icon sales">
                                 <div class="body">
-                                    <h6>Domains</h6>
-                                    <h2>8 <small class="info">of 10</small></h2>
-                                    <small>Total Registered Domain</small>
-                                    <div class="progress">
-                                        <div class="progress-bar l-green" style="width: 80%;"></div>
-                                    </div>
+                                    <h6>User</h6>
+                                    <h2>@ViewBag.UserCount</h2>
+                                    <small>Total users in the database</small>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
                    @*  <div class="col-lg-6 col-md-6 col-sm-12">

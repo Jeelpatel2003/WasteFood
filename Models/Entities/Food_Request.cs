@@ -12,11 +12,12 @@ namespace WasteFood.Models.Entities
         public int Id { get; set; }
 
         [ForeignKey("Id")]
-        public User Customer { get; set; }
+        public int User { get; set; }
 
-        public string Food_Name { get; set; }
+        public string Name { get; set; }
+        public int Mobile_No { get; set; }
 
-        public string Food_Description { get; set; }
+        public string Message { get; set; }
         public DateTime Pickup_Date { get; set; }
     }
 }

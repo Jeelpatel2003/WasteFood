@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -11,9 +12,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250805075018_ddatatypef")]
+    partial class ddatatypef
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,16 +89,17 @@ namespace WasteFood.Migrations
 
                     b.Property<string>("ContactNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("D_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Food_Description")
+                    b.Property<string>("FoodDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Food_Name")
+                    b.Property<string>("FoodName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -116,8 +120,6 @@ namespace WasteFood.Migrations
 
                     b.HasKey("DonationId");
 
-                    b.HasIndex("D_Id");
-
                     b.ToTable("Food_Donation");
                 });
 
@@ -129,27 +131,23 @@ namespace WasteFood.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fr_ID"));
 
+                    b.Property<string>("Food_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Food_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Mobile_No")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Pickup_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("User")
-                        .HasColumnType("int");
-
                     b.HasKey("Fr_ID");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Food_Request");
                 });
@@ -187,15 +185,15 @@ namespace WasteFood.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
+            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
                 {
-                    b.HasOne("WasteFood.Models.Entities.Donor", "Donor")
+                    b.HasOne("WasteFood.Models.Entities.User", "Customer")
                         .WithMany()
-                        .HasForeignKey("D_Id")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Donor");
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

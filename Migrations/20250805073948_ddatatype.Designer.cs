@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -11,9 +12,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250805073948_ddatatype")]
+    partial class ddatatype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,24 +81,23 @@ namespace WasteFood.Migrations
 
             modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
                 {
-                    b.Property<int>("DonationId")
+                    b.Property<int>("FD_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FD_Id"));
 
-                    b.Property<string>("ContactNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ContactNo")
+                        .HasColumnType("int");
 
                     b.Property<int>("D_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Food_Description")
+                    b.Property<string>("FoodDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Food_Name")
+                    b.Property<string>("FoodName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -114,7 +116,7 @@ namespace WasteFood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DonationId");
+                    b.HasKey("FD_Id");
 
                     b.HasIndex("D_Id");
 
@@ -129,27 +131,23 @@ namespace WasteFood.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fr_ID"));
 
+                    b.Property<string>("Food_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Food_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Mobile_No")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Pickup_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("User")
-                        .HasColumnType("int");
-
                     b.HasKey("Fr_ID");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Food_Request");
                 });
@@ -196,6 +194,17 @@ namespace WasteFood.Migrations
                         .IsRequired();
 
                     b.Navigation("Donor");
+                });
+
+            modelBuilder.Entity("WasteFood.Models.Entities.Food_Request", b =>
+                {
+                    b.HasOne("WasteFood.Models.Entities.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

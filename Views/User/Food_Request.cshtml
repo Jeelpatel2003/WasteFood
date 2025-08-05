@@ -1,0 +1,208 @@
+﻿@model WasteFood.Models.Entities.Food_Request
+
+@{
+    ViewData["Title"] = "Add Food Request";
+    Layout = null;  // We are using full HTML page with sidebar
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Waste Food Management System</title>
+    <style>
+        /* Simple Reset and basic styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        #leftsidebar {
+            width: 220px;
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+            #leftsidebar .navbar-brand {
+                padding: 15px;
+                font-weight: bold;
+                font-size: 18px;
+                border-bottom: 1px solid #34495e;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+                #leftsidebar .navbar-brand img {
+                    width: 25px;
+                }
+
+            #leftsidebar .user-info {
+                padding: 15px;
+                border-bottom: 1px solid #34495e;
+                text-align: center;
+            }
+
+                #leftsidebar .user-info img {
+                    border-radius: 50%;
+                    width: 60px;
+                    height: 60px;
+                    object-fit: cover;
+                }
+
+                #leftsidebar .user-info h4 {
+                    margin: 10px 0 0 0;
+                    font-weight: normal;
+                }
+
+            #leftsidebar ul.list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                flex-grow: 1;
+            }
+
+                #leftsidebar ul.list li {
+                    border-bottom: 1px solid #34495e;
+                }
+
+                    #leftsidebar ul.list li a {
+                        display: block;
+                        padding: 12px 20px;
+                        color: white;
+                        text-decoration: none;
+                        font-size: 14px;
+                    }
+
+                        #leftsidebar ul.list li a:hover,
+                        #leftsidebar ul.list li.active > a {
+                            background-color: #1abc9c;
+                        }
+
+        /* Main content */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            max-width: calc(100% - 280px);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2980b9;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input.form-control,
+        textarea.form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            border: none;
+            padding: 10px 16px;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            .btn-success:hover {
+                background-color: #219150;
+            }
+
+        .text-danger {
+            font-size: 13px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <div class="navbar-brand">
+            <img src="~/assets/images/logo.svg" alt="Logo" />
+            <span>WFMS</span>
+        </div>
+        <div class="user-info">
+            <img src="~/assets/images/profile_av.jpg" alt="User" />
+            <h4>User</h4>
+        </div>
+        <ul class="list">
+            <li><a href="/User/Cdashboard">Dashboard</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="content">
+        <h2>Apply For Food</h2>
+
+        <form asp-action="CreateFood_Request" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Mobile_No" class="control-label"></label>
+                <input asp-for="Mobile_No" class="form-control" required />
+                <span asp-validation-for="Mobile_No" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Pickup_Date" class="control-label"></label>
+                <input asp-for="Pickup_Date" type="date" class="form-control" required />
+                <span asp-validation-for="Pickup_Date" class="text-danger"></span>
+            </div>
+
+            <br />
+            <button type="submit" class="btn-success">Submit</button>
+        </form>
+    </section>
+
+</body>
+
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

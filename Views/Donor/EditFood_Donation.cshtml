@@ -1,0 +1,41 @@
+﻿@model WasteFood.Models.ViewModels.Food_DonationViewModel
+
+<h1>Edit Food Donation</h1>
+
+<form method="post" asp-action="EditFood_Donation">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="DonationId" />
+
+    <div class="mb-3">
+        <label>Quantity</label>
+        <input type="number" class="form-control" asp-for="Quantity" />
+    </div>
+
+    <div class="mb-3">
+        <label>Pickup Address</label>
+        <input type="text" class="form-control" asp-for="PickupAddress" />
+    </div>
+
+    <div class="mb-3">
+        <label>Contact No</label>
+        <input type="text" class="form-control" asp-for="ContactNumber" />
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        <input type="text" class="form-control" asp-for="Status" />
+    </div>
+
+    <div class="mb-3">
+        <label>Image</label>
+        <input type="file" class="form-control" name="ImageFile" />
+        @* If you want to show existing image *@
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="~/uploads/@Model.ImagePath" alt="Food Image" width="150" class="mt-2" />
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

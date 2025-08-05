@@ -8,8 +8,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(); // Moved this line up to avoid duplicate `app` variable issue
 
+builder.Services.AddSession();
 var app = builder.Build();
+
+app.UseSession();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -23,6 +27,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession(); // Ensure this is placed after UseRouting()
 
 app.MapControllerRoute(
     name: "default",

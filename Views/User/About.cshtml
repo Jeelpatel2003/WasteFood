@@ -1,0 +1,211 @@
+﻿@{
+    ViewData["Title"] = "About | Waste Food Management System";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f9f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #2d8659;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background-color: #e6f2e6;
+            border: 1px solid #b3d9b3;
+            flex: 1 1 45%;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .stat-box h3 {
+                font-size: 32px;
+                color: #2d8659;
+                margin: 0;
+            }
+
+            .stat-box p {
+                color: #333;
+            }
+
+        form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            background-color: #2d8659;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .btn-submit:hover {
+                background-color: #216c48;
+            }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .img-small {
+            max-width: 100px;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-container">
+        <div class="section">
+            <img class="hero-image" src="https://images.unsplash.com/photo-1603570419884-1c2a5e9f94e9?auto=format&fit=crop&w=1350&q=80" alt="Saving food banner" />
+
+            <h1>About Waste Food Management System</h1>
+            <p>
+                The <strong>Waste Food Management System (WFMS)</strong> is a community-driven digital platform that connects food donors—such as restaurants, households, and event organizers—with NGOs, shelters, and those in need.
+                Our mission is simple: <em>Reduce food waste and hunger through technology</em>.
+            </p>
+        </div>
+
+        <div class="section stats">
+            <div class="stat-box">
+                <h3>1500+</h3>
+                <p>Meals Donated</p>
+            </div>
+            <div class="stat-box">
+                <h3>230+</h3>
+                <p>Active Donors</p>
+            </div>
+            <div class="stat-box">
+                <h3>95%</h3>
+                <p>Waste Reduction</p>
+            </div>
+            <div class="stat-box">
+                <h3>50+</h3>
+                <p>Partner Organizations</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How It Works</h2>
+            <p>
+                WFMS makes it easy to donate surplus food and ensure it reaches those who need it most.
+                Donors simply post their food availability, and NGOs or volunteers handle the logistics.
+                It’s fast, secure, and helps reduce both waste and hunger simultaneously.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+
+            @if (TempData["Success"] != null)
+            {
+                <div style="padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 15px; color: #155724;">
+                    @TempData["Success"]
+                </div>
+            }
+
+            <form method="post" asp-action="SendContact">
+                <div class="form-group">
+                    <label for="Name">Your Name</label>
+                    <input type="text" id="Name" name="Name" required />
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email Address</label>
+                    <input type="email" id="Email" name="Email" required />
+                </div>
+                <div class="form-group">
+                    <label for="Message">Message</label>
+                    <textarea id="Message" name="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            &copy; @DateTime.Now.Year Waste Food Management System. All rights reserved.
+        </div>
+    </div>
+
+</body>
+</html>

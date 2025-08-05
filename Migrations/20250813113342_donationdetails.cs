@@ -5,7 +5,7 @@
 namespace WasteFood.Migrations
 {
     /// <inheritdoc />
-    public partial class cloneadmin : Migration
+    public partial class donationdetails : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
