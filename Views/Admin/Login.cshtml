@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+    ViewData["Title"] = "Admin Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f3f3;
+        }
+
+        .login-container {
+            width: 400px;
+            margin: 100px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c7a4b;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .btn-login {
+            background: #2c7a4b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            .btn-login:hover {
+                background: #1e5f3a;
+            }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Login</h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="error">@TempData["Error"]</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <label>Username</label>
+            <input type="text" name="Username" required />
+
+            <label>Password</label>
+            <input type="password" name="Password" required />
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+    </div>
+</body>
+</html>

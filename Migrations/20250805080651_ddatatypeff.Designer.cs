@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteFood.Data;
 
@@ -10,9 +11,11 @@ using WasteFood.Data;
 namespace WasteFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250805080651_ddatatypeff")]
+    partial class ddatatypeff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,6 +93,14 @@ namespace WasteFood.Migrations
                     b.Property<int>("D_Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("FoodDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FoodName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Food_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,8 +125,6 @@ namespace WasteFood.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DonationId");
-
-                    b.HasIndex("D_Id");
 
                     b.ToTable("Food_Donation");
                 });
@@ -151,17 +160,6 @@ namespace WasteFood.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("WasteFood.Models.Entities.Food_Donation", b =>
-                {
-                    b.HasOne("WasteFood.Models.Entities.Donor", "Donor")
-                        .WithMany()
-                        .HasForeignKey("D_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Donor");
                 });
 #pragma warning restore 612, 618
         }
