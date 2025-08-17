@@ -114,48 +114,26 @@ namespace WasteFood.Controllers
             }
             return RedirectToAction(nameof(List));
         }
-
-        [HttpGet]
-        public IActionResult About()
+        public IActionResult ShowFood()
         {
-            return View();
+            using (var _dbContext = new ApplicationDbContext())
+            {
+                var foodDonations = _dbContext.Food_Donation.ToList();
+                return View(foodDonations ?? new List<Food_Donation>());
+            }
         }
 
-        [HttpPost]
-        public IActionResult SendContact(string name, string email, string message)
-        {
-            // Here, you can add logic to email or store the message
-            TempData["Success"] = "Thank you! We will get back to you shortly.";
-            return RedirectToAction("About");
-        }
-
-        [HttpGet]
         public async Task<IActionResult> Show_Food()
         {
-            // Fetch all food donations from database
-            var donations = await _dbContext.Food_Donation
-                                            .AsNoTracking()
-                                            .ToListAsync();
-
-            // Pass empty list if null to avoid NullReferenceException
-            return View(donations ?? new List<Food_Donation>());
+            var foodDonations = await _dbContext.Food_Donation.ToListAsync();
+            return View(foodDonations ?? new List<Food_Donation>());
         }
 
-        public async Task<IActionResult> ListFood_Request(int? id)
+        public async Task<IActionResult> Food_Request()
         {
-            var requests = _dbContext.Food_Request.AsQueryable();
+            return View();
 
-            // If id (Food Donation ID) is passed, filter by it
-            if (id.HasValue)
-            {
-                requests = requests.Where(r => r.Id == id.Value);
-            }
-
-            var list = await requests.ToListAsync();
-            return View(list);
         }
+
     }
 }
-
-
-

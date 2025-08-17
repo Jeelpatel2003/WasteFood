@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WasteFood.Models.Entities.Food_Donation>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Food Donation List";
@@ -221,26 +222,6 @@
         </div>
         <ul class="list">
             <li class="active"><a href="/User/Cdashboard">Dashboard</a></li>
-
-            @*  <li>
-                <a href="javascript:void(0);" class="menu-toggle">Tables</a>
-                <ul class="ml-menu">
-                    <li><a asp-controller="Donor" asp-action="List">Donor</a></li>
-                    <li><a asp-controller="Donor" asp-action="Food_Donation">Food Donation</a></li>
-                    <li><a href="jquery-datatable.html">Jquery Datatables</a></li>
-                    <li><a href="editable-table.html">Editable Tables</a></li>
-                    <li><a href="footable.html">Foo Tables</a></li>
-                    <li><a href="table-color.html">Tables Color</a></li>
-                </ul>
-            </li> *@
-            @*  <li>
-                <a href="javascript:void(0);" class="menu-toggle">Maps</a>
-                <ul class="ml-menu">
-                    <li><a href="google.html">Google Map</a></li>
-                    <li><a href="yandex.html">YandexMap</a></li>
-                    <li><a href="jvectormap.html">jVectorMap</a></li>
-                </ul>
-            </li> *@
         </ul>
     </aside>
 
